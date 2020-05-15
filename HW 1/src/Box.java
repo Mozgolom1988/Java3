@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Box implements Comparable<Box>{
+public class Box {
     Boolean emptyBox;
     ArrayList<Fruit> boxFruit;
 
@@ -52,8 +52,7 @@ public class Box implements Comparable<Box>{
 
     }
 
-    @Override
-    public int compareTo(Box another) {
-        return (int)(this.getWeight() - another.getWeight());
+    public boolean compare(Box another) {
+        return Math.abs(this.getWeight() - another.getWeight()) < 0.0001f;
     }
 }

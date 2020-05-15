@@ -10,7 +10,7 @@ public class Main  {
         changePlace(a);
 
         //Проверка задания 2:
-        ArrayList<?> result= arrayToArrayList(a);
+        ArrayList<Number> result= arrayToArrayList(a);
 
         //Задание 3:
         Box box1 = new Box();
@@ -25,7 +25,7 @@ public class Main  {
         System.out.println("Коробка 1 размер: " + box1.boxFruit.size() + " вес: " + box1.getWeight());
         System.out.println("Коробка 2размер: " + box2.boxFruit.size() + " вес: " + box2.getWeight());
 
-        System.out.println("Коробки 1 и 2 равны: " + (box1.compareTo(box2)==0));
+        System.out.println("Коробки 1 и 2 равны: " + (box1.compare(box2)));
 
         Box box3 = new Box();
         box1.replaceFruit(box3);
@@ -47,11 +47,7 @@ public class Main  {
     }
 
     //Задание 2: Написать метод, который преобразует массив в ArrayList;
-    private static ArrayList<?> arrayToArrayList(Object[] a) {
-        ArrayList<Object> ArrayListresult = new ArrayList(Arrays.asList(a));
-
-        System.out.println(ArrayListresult);
-        return ArrayListresult;
-
+    private static <T> ArrayList<T> arrayToArrayList(T[] a) {
+        return new ArrayList<T>(Arrays.asList(a));
     }
 }
