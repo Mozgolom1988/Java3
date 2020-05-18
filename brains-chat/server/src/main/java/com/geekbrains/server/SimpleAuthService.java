@@ -39,7 +39,7 @@ public class SimpleAuthService implements AuthService {
     }
 
     @Override
-    public void changeNick(String login, String password, String NickName) {
+    public void changeNick(String oldNickName, String NickName) {
         
     }
 

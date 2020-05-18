@@ -51,7 +51,14 @@ public class ClientHandler {
                             }
                             if(msg.startsWith("/changenick ")) {
                                 String[] tokens = msg.split("\\s");
-                                String nick = server.getAuthService().changeNick(tokens[1], tokens[2], tokens[3]);
+                                server.getAuthService().changeNick(nickname, tokens[1]);
+
+                                server.broadcastMsg("Пользователь " + nickname + " сменил ник на " + tokens[1]);
+                                nickname = tokens[1];
+                                server.broadcastClientsList();
+
+                            }
+
                         } else {
                             server.broadcastMsg(nickname + ": " + msg);
                         }
