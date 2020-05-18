@@ -26,6 +26,9 @@ public class SimpleAuthService implements AuthService {
     }
 
     @Override
+    public void start() {}
+
+    @Override
     public String getNicknameByLoginAndPassword(String login, String password) {
         for (UserData o : users) {
             if (o.login.equals(login) && o.password.equals(password)) {
@@ -34,4 +37,12 @@ public class SimpleAuthService implements AuthService {
         }
         return null;
     }
+
+    @Override
+    public void changeNick(String login, String password, String NickName) {
+        
+    }
+
+    @Override
+    public void stop() {}
 }
