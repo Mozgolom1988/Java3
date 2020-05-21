@@ -90,8 +90,13 @@ public class Controller implements Initializable {
         Network.setCallOnAuthenticated(args -> {
             setAuthenticated(true);
             nickname = args[0].toString();
-            chatLog = new ChatLog("History_" + loginField.getText(), 100);
-            textArea.appendText(chatLog.getStrings().toString());
+
+            chatLog = new ChatLog("History_" + nickname + ".txt", 100);
+            String[] history = chatLog.getStrings();
+            for (int i = 0; i < history.length; i++) {
+                textArea.appendText(history[i] + "\n");
+            }
+
         });
 
         Network.setCallOnMsgReceived(args -> {
@@ -108,7 +113,7 @@ public class Controller implements Initializable {
                 }
             } else {
                 textArea.appendText(msg + "\n");
-                chatLog.wrieString(msg + "\n");
+                chatLog.wrieString(msg + System.lineSeparator());
             }
         });
     }

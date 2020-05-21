@@ -1,0 +1,7 @@
+Puh: Привет
+Puh: Как дела?
+Puh: Отлично
+Puh: Спасибо
+Sergey: Hello
+Sergey: Отлично
+Puh: а у тебя?
