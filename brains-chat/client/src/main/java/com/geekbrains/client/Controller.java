@@ -27,6 +27,7 @@ public class Controller implements Initializable {
 
     private boolean authenticated;
     private String nickname;
+    private ChatLog chatLog;
 
     public void setAuthenticated(boolean authenticated) {
         this.authenticated = authenticated;
@@ -78,11 +79,19 @@ public class Controller implements Initializable {
     public void linkCallbacks() {
         Network.setCallOnException(args -> showAlert(args[0].toString()));
 
-        Network.setCallOnCloseConnection(args -> setAuthenticated(false));
+        Network.setCallOnCloseConnection(args -> {
+            setAuthenticated(false);
+            if(chatLog != null) {
+                chatLog.closeChat();
+            }
+        }
+        );
 
         Network.setCallOnAuthenticated(args -> {
             setAuthenticated(true);
             nickname = args[0].toString();
+            chatLog = new ChatLog("History_" + loginField.getText(), 100);
+            textArea.appendText(chatLog.getStrings().toString());
         });
 
         Network.setCallOnMsgReceived(args -> {
@@ -99,6 +108,7 @@ public class Controller implements Initializable {
                 }
             } else {
                 textArea.appendText(msg + "\n");
+                chatLog.wrieString(msg + "\n");
             }
         });
     }
