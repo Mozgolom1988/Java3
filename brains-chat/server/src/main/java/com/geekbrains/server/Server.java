@@ -4,10 +4,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
     private Vector<ClientHandler> clients;
     private AuthService authService;
+    private ExecutorService service;
 
     public AuthService getAuthService() {
         return authService;
@@ -17,11 +20,13 @@ public class Server {
         clients = new Vector<>();
         authService = new SQLLiteAuthService();
         authService.start();
+        service = Executors.newFixedThreadPool(100);
         try (ServerSocket serverSocket = new ServerSocket(8189)) {
             System.out.println("Сервер запущен на порту 8189");
+
             while (true) {
                 Socket socket = serverSocket.accept();
-                new ClientHandler(this, socket);
+                new ClientHandler(this, socket, service);
                 System.out.println("Подключился новый клиент");
             }
         } catch (IOException e) {
@@ -29,6 +34,8 @@ public class Server {
         }
 
         authService.stop();
+        service.shutdownNow();
+
         System.out.println("Сервер завершил свою работу");
     }
 
