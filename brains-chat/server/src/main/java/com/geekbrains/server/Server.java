@@ -6,8 +6,10 @@ import java.net.Socket;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.*;
 
 public class Server {
+    private static final Logger logger = Logger.getLogger(Server.class.getName());
     private Vector<ClientHandler> clients;
     private AuthService authService;
     private ExecutorService service;
@@ -17,17 +19,18 @@ public class Server {
     }
 
     public Server() {
+        logger.setLevel(Level.INFO);
+
         clients = new Vector<>();
         authService = new SQLLiteAuthService();
         authService.start();
         service = Executors.newFixedThreadPool(100);
         try (ServerSocket serverSocket = new ServerSocket(8189)) {
-            System.out.println("Сервер запущен на порту 8189");
-
+            logger.log(Level.INFO, "Сервер запущен на порту 8189");
             while (true) {
                 Socket socket = serverSocket.accept();
                 new ClientHandler(this, socket, service);
-                System.out.println("Подключился новый клиент");
+                logger.log(Level.INFO, "Подключился новый клиент");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -36,7 +39,7 @@ public class Server {
         authService.stop();
         service.shutdownNow();
 
-        System.out.println("Сервер завершил свою работу");
+        logger.log(Level.INFO, "Сервер завершил свою работу");
     }
 
     public void broadcastMsg(String msg) {
@@ -46,6 +49,7 @@ public class Server {
     }
 
     public void privateMsg(ClientHandler sender, String receiverNick, String msg) {
+        logger.log(Level.INFO, sender.getNickname() + " отправил приватное сообщение");
         if (sender.getNickname().equals(receiverNick)) {
             sender.sendMsg("заметка для себя: " + msg);
             return;
@@ -58,6 +62,7 @@ public class Server {
             }
         }
         sender.sendMsg("Клиент " + receiverNick + " не найден");
+
     }
 
     public void subscribe(ClientHandler clientHandler) {
@@ -80,6 +85,7 @@ public class Server {
     }
 
     public void broadcastClientsList() {
+        logger.log(Level.INFO, "Добавлено новое сообщение в чат");
         StringBuilder sb = new StringBuilder(15 * clients.size());
         sb.append("/clients ");
         // '/clients '
