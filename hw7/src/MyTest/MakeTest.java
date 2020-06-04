@@ -17,7 +17,7 @@ public class MakeTest {
 
         ArrayList<Method> methods = new ArrayList<>();
         Method BeforeSuite = null;
-        Method AfterSuite = null;
+        Method AfterSuite  = null;
 
         //Проверка методов BeforeSuite и AfterSuite и сохранение их значений
         for (Method m: c.getDeclaredMethods()) {
@@ -46,6 +46,7 @@ public class MakeTest {
             }
         }
 
+        //Приоритет 1 - наивысший, 10 - наименьший
         methods.sort((o1, o2) -> o1.getAnnotation(Test.class).priority() - o2.getAnnotation(Test.class).priority());
 
         //Запуск теста:
