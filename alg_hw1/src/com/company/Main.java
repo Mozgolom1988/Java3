@@ -9,7 +9,7 @@ public class Main {
         //1.2 Поиск минимального элемента в массиве
         FindMinInArray(new int[]{2, 3, 5, -8});
         //1.3 Нахождение среднего арифметического массива
-        MiddleSumArray(new int[]{2, 4, 4, 2});
+        MiddleSumArray(new int[]{2, 8, 4, 2});
 
         //2 Подсчитать сложность описанных алгоритмов:
         //Немного не понял что тут нужно делать
@@ -41,7 +41,7 @@ public class Main {
 
     public static void MiddleSumArray(int[] NumberArray) {
         int sumArray = 0;
-        for (int i = 0; i < NumberArray.length; i++) sumArray = sumArray +NumberArray[i];
+        for (int i = 0; i < NumberArray.length; i++) sumArray += NumberArray[i];
         System.out.println("Среднеарифмитическое значение в массиве: " + (sumArray/NumberArray.length));
     }
 
