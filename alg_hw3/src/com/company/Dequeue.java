@@ -29,27 +29,48 @@ public class Dequeue {
         return items;
     }
 
-    public void insert(int value) {
+    public void insertFirst(int value) {
         if (isFull()) {
-            capacity *= 2;
-            int[] newQ = new int[capacity];
-            if (tail >= head) {
-                System.arraycopy(queue, 0, newQ, 0, queue.length);
-            } else {
-                System.arraycopy(queue, 0, newQ, 0, tail + 1);
-                System.arraycopy(queue, head,
-                        newQ, capacity - (queue.length - head),
-                        queue.length - head - 1);
-            }
-            queue = newQ;
+            increaseCapacity();
+        }
+
+        int[] afterIndex = new int[capacity - head];
+        System.arraycopy(queue, head, afterIndex, 0, capacity - head);
+        queue[head] = value;
+        System.arraycopy(afterIndex, 0, queue, head +1, afterIndex.length-1);
+
+        if (tail == capacity - 1)
+            tail = -1;
+        else tail++;
+        items++;
+    }
+
+    public void insertLast(int value) {
+        if (isFull()) {
+            increaseCapacity();
         }
         if (tail == capacity - 1)
             tail = -1;
+
         queue[++tail] = value;
         items++;
     }
 
-    public int remove() {
+    private void increaseCapacity() {
+        capacity *= 2;
+        int[] newQ = new int[capacity];
+        if (tail >= head) {
+            System.arraycopy(queue, 0, newQ, 0, queue.length);
+        } else {
+            System.arraycopy(queue, 0, newQ, 0, tail + 1);
+            System.arraycopy(queue, head,
+                    newQ, capacity - (queue.length - head),
+                    queue.length - head - 1);
+        }
+        queue = newQ;
+    }
+
+    public int removeFirst() {
         if (isEmpty())
             throw new NoSuchElementException("Queue is empty");
         int temp = queue[head++];
@@ -58,7 +79,16 @@ public class Dequeue {
         return temp;
     }
 
-    public int peek() {
+    public int removeLast() {
+        if (isEmpty())
+            throw new NoSuchElementException("Queue is empty");
+        int temp = queue[tail--];
+        items--;
+        return temp;
+    }
+
+    public int peekFirst() {
         return queue[head];
     }
+    public int peekLast() {return queue[tail]; }
 }
