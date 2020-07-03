@@ -9,7 +9,7 @@ public class Dequeue {
     private int tail;
     private int items;
 
-    public Queue(int capacity) {
+    public Dequeue(int capacity) {
         this.capacity = capacity;
         queue = new int[capacity];
         head = 0;
