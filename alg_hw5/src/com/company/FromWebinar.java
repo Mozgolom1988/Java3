@@ -99,6 +99,6 @@ public class FromWebinar {
 
     // + King routes
     // o chess Knight
-    //h Hanoi
+    // h Hanoi
     // h 8 Queens
 }
