@@ -4,12 +4,15 @@ public class Main {
 
     public static void main(String[] args) {
 
+        int totalTree = 1;
         int unBalanceTree = 0;
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < totalTree; i++) {
             Tree newTree = createTree();
-            if(checkBalance(newTree)) unBalanceTree++;
+            if(newTree.checkBalance()) unBalanceTree++;
         }
+
+        System.out.println("Процент несбалансированных деревьев : " + (double)(unBalanceTree*100/totalTree));
 
     }
 
@@ -18,19 +21,18 @@ public class Main {
         int currentTreeLevel = 0;
         Tree myTree = new Tree();
 
-        while (currentTreeLevel != 6){
+        //первый уровень 0, значит анализируем когда будет всего 5 уровней.
+        while (currentTreeLevel != 5){
             int randomNumber = -100 + (int) (Math.random() * 200);
             Cat c = new Cat(randomNumber,"barsik");
             myTree.insert(c);
-            currentTreeLevel = myTree.getCurrentLevel();
 
+            currentTreeLevel = myTree.findMaxLevel();
         }
 
-            return myTree;
-    }
+        //myTree.displayTree();
 
-    private static boolean checkBalance(Tree newTree) {
-        return false;
+        return myTree;
     }
 
 

@@ -4,6 +4,14 @@ public class Tree {
 
     // travers
     // delete
+    private static int maxlevel =0;
+
+    public boolean checkBalance() {
+        int checkmaxlevel = findMaxLevel();
+
+        //в разработке сравнить текущую ветку, если по ней уровень отличается на 2 от максимальной тогда дерево несбалансировано;
+        return false;
+    }
 
     private class TreeNode implements Comparable {
         private Cat c;
@@ -152,11 +160,21 @@ public class Tree {
         return s;
     }
 
-    public int getCurrentLevel() {
-        if(root==0 || (root.left ==null && root.right ==null)) return 0;
+    public int findMaxLevel() {
+        return getCurrentLevel(root,0);
+    }
 
+    private int getCurrentLevel(TreeNode current, int currentlevel) {
+        if(maxlevel < currentlevel) maxlevel = currentlevel;
 
-
+        if(current.left == null && current.right == null) {
+            return maxlevel;
+        } else if (current.left !=null) {
+            getCurrentLevel(current.left, currentlevel +1);
+        } else {
+            getCurrentLevel(current.right, currentlevel +1);
+        }
+        return maxlevel;
     }
 
 }
