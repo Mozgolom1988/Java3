@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int totalTree = 1;
+        int totalTree = 20;
         int unBalanceTree = 0;
 
         for (int i = 0; i < totalTree; i++) {
@@ -12,7 +12,7 @@ public class Main {
             if(newTree.checkBalance()) unBalanceTree++;
         }
 
-        System.out.println("Процент несбалансированных деревьев : " + (double)(unBalanceTree*100/totalTree));
+        System.out.println("Процент несбалансированных деревьев : " + (double)(unBalanceTree*100/totalTree) + "%");
 
     }
 
