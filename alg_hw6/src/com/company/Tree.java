@@ -1,6 +1,7 @@
 package com.company;
 
 public class Tree {
+
     // travers
     // delete
 
@@ -149,6 +150,13 @@ public class Tree {
             s.right = node.right;
         }
         return s;
+    }
+
+    public int getCurrentLevel() {
+        if(root==0 || (root.left ==null && root.right ==null)) return 0;
+
+
+
     }
 
 }
