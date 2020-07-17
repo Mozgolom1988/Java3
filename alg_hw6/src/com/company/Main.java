@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int totalTree = 20;
+        int totalTree = 2;
         int unBalanceTree = 0;
 
         for (int i = 0; i < totalTree; i++) {
